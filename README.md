@@ -47,6 +47,25 @@ This architecture allows the system to **handle multiple concurrent requests eff
   ```python
 result = medical_crew.kickoff({'query': query,'file_path': file_path})
   ```
+
+#### • in main.py it is only calling doctor agent and not calling nutritionist and exercise_specialist so i have updated the code so that it will call other two agent with there task sequentialy. and save the output of each agent in a list then inserting it to the database after completing.
+
+  ✅ Fixed with:
+  ```python
+results = []
+
+# 2. Create a callback function to capture each task’s output
+def task_callback(task_output):
+    # name = getattr(task_output, 'task_name', '<unknown>')
+    results.append(task_output.raw)
+medical_crew = Crew(
+    agents=[doctor, nutritionist, exercise_specialist],
+    tasks=[help_patients, nutrition_analysis, exercise_planning],
+    process=Process.sequential,
+    task_callback=task_callback,
+)
+final  = medical_crew.kickoff({'query': query,'file_path': file_path})
+  ```
 #### created .env file to fetch the open ai api key.
 
 #### 🧑‍⚕️ Agent Import
