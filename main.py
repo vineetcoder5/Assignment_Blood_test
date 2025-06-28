@@ -47,7 +47,7 @@ def analyze_blood_test(query: str, file_path: str, task_id: str):
             tasks=[help_patients],
             process=Process.sequential,
         )
-        result = medical_crew.kickoff({'query': query})
+        result = medical_crew.kickoff({'query': query,'file_path': file_path})
 
         # Fetch the row
         db_result = db.query(AnalysisResult).filter_by(task_id=task_id).first()
