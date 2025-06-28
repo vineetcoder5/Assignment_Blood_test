@@ -1,46 +1,14 @@
-
 # 🧪 Blood Test Report Analyzer — Debugged and Enhanced
 
 A multi-agent AI system that analyzes blood test reports using **CrewAI**, served through a **FastAPI API**, with **Celery for async processing** and **MySQL for result storage**.
 
 ---
 
-## 🚀 Project Objective
-
-This system was initially buggy and incomplete. The goal was to **debug** and **make it fully functional** using:
-
-- ✅ FastAPI for HTTP interface  
-- ✅ CrewAI agents for medical reasoning  
-- ✅ Celery for background tasks  
-- ✅ Redis as task broker  
-- ✅ MySQL with SQLAlchemy ORM for storing results  
-
----
-
 ## 🐛 Bugs Fixed & Modifications Made
-
-### ✅ Environment & Library Issues
-
-- 🔹 Used Python 3.11.0
-- 🔹 Created a virtual environment:  
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate
-  ```
-
-- 🔹 Installed all necessary libraries:  
-  ```bash
-  pip install crewai crewai-tools fastapi uvicorn celery redis python-multipart sqlalchemy pymysql
-  ```
-
----
 
 ### ✅ Code Fixes
 
 #### 🔄 Import Errors
-
-- ❌ `from crewai_tools.tools.serper_dev_tool import SerperDevTool`  
-  ✅ Changed to `from crewai_tools import SerperDevTool`
 
 - ❌ `PDFLoader` not defined  
   ✅ Used:  
@@ -61,7 +29,6 @@ This system was initially buggy and incomplete. The goal was to **debug** and **
 
 - ❌ `llm` was undefined  
   ✅ Fixed with:
-
   ```python
   from crewai.llm import LLM
 
@@ -76,6 +43,13 @@ This system was initially buggy and incomplete. The goal was to **debug** and **
 
 - ❌ `from crewai.agents import Agent`  
   ✅ Changed to `from crewai import Agent` to match the current version of CrewAI
+
+- ❌ `from crewai_tools.tools.serper_dev_tool import SerperDevTool`  
+  ✅ Changed to `from crewai_tools import SerperDevTool`
+
+---
+
+✅ Added a new file `models.py` for SQLAlchemy DB integration
 
 ---
 
@@ -109,17 +83,17 @@ docker run -d -p 6379:6379 --name redis redis
 ### 4. Run MySQL and Create DB
 
 - Create a database named `blood_analysis`
-- Update this line in `main.py` (encode `@` as `%40`):
+- Update the line in `main.py`:
 
 ```python
-DATABASE_URL = "mysql+pymysql://root:Vineet%40@127.0.0.1:3306/blood_analysis"
+DATABASE_URL = "mysql+pymysql://root:Yourpassword@127.0.0.1:3306/blood_analysis"
 ```
 
 ---
 
 ## ⚙️ Run the Application
 
-### ✅ 1. Start FastAPI server
+### ✅ 1. Start FastAPI Server
 
 ```bash
 uvicorn main:app --reload --port 8000
@@ -141,12 +115,11 @@ celery -A main.celery_app worker --loglevel=info --pool=solo
 
 ```bash
 curl -X POST http://localhost:8000/analyze \
-  -F "file=@C:\Users\KIIT\Desktop\Folder\blood-test-analyser-debug\data\sample.pdf" \
+  -F "file=@C:\Your\Folder\Path\sample.pdf" \
   -F "query=analyse my blood test report"
 ```
 
 Response:
-
 ```json
 {
   "status": "queued",
@@ -186,17 +159,3 @@ curl http://localhost:8000/result/4dd1b3d6-3223-48ee-bd36-1df7d8491e70
 - **Celery + Redis**
 - **CrewAI (multi-agent reasoning)**
 - **MySQL + SQLAlchemy**
-
----
-
-## 🧠 Future Enhancements
-
-- Add JWT user authentication
-- Support multi-user task queues
-- Build a frontend for uploading reports
-
----
-
-## 🙌 Author
-
-> Debugged and documented by [Your Name]
