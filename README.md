@@ -51,6 +51,7 @@ This architecture allows the system to **handle multiple concurrent requests eff
 ---
 
 ✅ Added a new file `models.py` for SQLAlchemy DB integration
+✅ Made some changes in main.py for integrating Celery and MySQL
 
 ---
 
@@ -123,7 +124,8 @@ curl -X POST http://localhost:8000/analyze \
 Response:
 ```json
 {
-  "status": "queued",
+  ...,
+ ...,
   "task_id": "4dd1b3d6-3223-48ee-bd36-1df7d8491e70"
 }
 ```
