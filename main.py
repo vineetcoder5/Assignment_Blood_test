@@ -12,7 +12,7 @@ from sqlalchemy.orm import sessionmaker
 from models import Base, AnalysisResult
 
 # === Database Configuration ===
-DATABASE_URL = "mysql+pymysql://root:Vineet%40@localhost:3306/blood_analysis"
+DATABASE_URL = "mysql+pymysql://root:Yourpassword@localhost:3306/blood_analysis"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
