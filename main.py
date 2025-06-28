@@ -12,7 +12,7 @@ from sqlalchemy.orm import sessionmaker
 from models import Base, AnalysisResult
 
 # === Database Configuration ===
-DATABASE_URL = "mysql+pymysql://root:Yourpassword@localhost:3306/blood_analysis"
+DATABASE_URL = "mysql+pymysql://root:Vineet%40@localhost:3306/blood_analysis"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
@@ -31,23 +31,26 @@ celery_app.conf.enable_utc = True
 # === Celery Task ===
 @celery_app.task
 def analyze_blood_test(query: str, file_path: str, task_id: str):
-    from sqlalchemy.orm import sessionmaker
-    from sqlalchemy import create_engine
-    from models import Base, AnalysisResult
 
-    DATABASE_URL = "mysql+pymysql://root:Vineet%40@127.0.0.1:3306/blood_analysis"
+    DATABASE_URL = "mysql+pymysql://root:Yourpassword@127.0.0.1:3306/blood_analysis"
     engine = create_engine(DATABASE_URL)
     Session = sessionmaker(bind=engine)
     db = Session()
+    # 1. Define a container for the results
+    results = {}
 
+    # 2. Create a callback function to capture each task’s output
+    def task_callback(task_output):
+        results[task_output.task.name] = task_output.raw
     try:
         # Run CrewAI analysis
         medical_crew = Crew(
             agents=[doctor, nutritionist, exercise_specialist],
             tasks=[help_patients, nutrition_analysis, exercise_planning],
             process=Process.sequential,
+            task_callback=task_callback,
         )
-        result = medical_crew.kickoff({'query': query,'file_path': file_path},return_all=True)
+        final  = medical_crew.kickoff({'query': query,'file_path': file_path})
 
         # Fetch the row
         db_result = db.query(AnalysisResult).filter_by(task_id=task_id).first()
@@ -55,9 +58,9 @@ def analyze_blood_test(query: str, file_path: str, task_id: str):
             raise Exception(f"No task found with task_id={task_id}")
 
         db_result.status = "COMPLETED"
-        db_result.result = str(result)
+        db_result.result = str(results)
         db.commit()
-        return str(result)
+        return str(results)
 
     except Exception as e:
         db_result = db.query(AnalysisResult).filter_by(task_id=task_id).first()
