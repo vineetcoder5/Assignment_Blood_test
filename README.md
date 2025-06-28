@@ -41,7 +41,7 @@ This architecture allows the system to **handle multiple concurrent requests eff
   ```
 #### • In task.py nutrition_analysis and exercise_planning has agent=docrtor which is wrong because there is nutritionist and exercise_specialist agent in agent.py so nutrition_analysis will use nutritionist and exercise_planning will use exercise_specialist. corrected that
 
-#### Updated file path was never passed to the agent. prev it is using default in the tool. so i have updated it so that file path is passed.
+#### • Updated file path was never passed to the agent. prev it is using default in the tool. so i have updated it so that file path is passed.
 
   ✅ Fixed with:
   ```python
@@ -56,7 +56,6 @@ results = []
 
 # 2. Create a callback function to capture each task’s output
 def task_callback(task_output):
-    # name = getattr(task_output, 'task_name', '<unknown>')
     results.append(task_output.raw)
 medical_crew = Crew(
     agents=[doctor, nutritionist, exercise_specialist],
@@ -66,7 +65,7 @@ medical_crew = Crew(
 )
 final  = medical_crew.kickoff({'query': query,'file_path': file_path})
   ```
-#### created .env file to fetch the open ai api key.
+#### • created .env file to fetch the open ai api key.
 
 #### 🧑‍⚕️ Agent Import
 
