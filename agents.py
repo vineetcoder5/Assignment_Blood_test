@@ -4,19 +4,16 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# from crewai.agents import Agent
 from crewai import Agent
+
 from tools import search_tool, BloodTestReportTool
 
 ### Loading LLM
-os.environ['GOOGLE_API_KEY'] = os.getenv("GOOGLE_API_KEY")
-
-from langchain_google_genai import ChatGoogleGenerativeAI
 from crewai.llm import LLM
 
 llm = LLM(              
     model="gpt-4.1-mini",              
-    api_key="Your open ai api key",
+    api_key="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",
     temperature=0.8
 )
 

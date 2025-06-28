@@ -3,20 +3,16 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-from crewai_tools import SerperDevTool
-# from crewai_tools import tool
-# from crewai_tools import tools
 from crewai.tools import tool
-# from crewai_tools import SerperDevTool
+from crewai_tools import SerperDevTool
 from langchain_community.document_loaders import PyPDFLoader
-
 ## Creating search tool
 search_tool = SerperDevTool()
 
 ## Creating custom pdf reader tool
-class BloodTestReportTool:
+class BloodTestReportTool():
     @tool("Read Blood Test Report")
-    def read_data_tool(path='data/sample.pdf'):
+    async def read_data_tool(path='data/sample.pdf'):
         """Tool to read data from a pdf file from a path
 
         Args:
@@ -30,7 +26,14 @@ class BloodTestReportTool:
 
         full_report = ""
         for data in docs:
-            full_report+=data.page_content+"\n"
+            # Clean and format the report data
+            content = data.page_content
+            
+            # Remove extra whitespaces and format properly
+            while "\n\n" in content:
+                content = content.replace("\n\n", "\n")
+                
+            full_report += content + "\n"
             
         return full_report
 

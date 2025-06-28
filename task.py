@@ -1,11 +1,10 @@
 ## Importing libraries and files
 from crewai import Task
 
-from agents import doctor, verifier,nutritionist,exercise_specialist
-from tools import search_tool, BloodTestReportTool,NutritionTool
+from agents import doctor, verifier
+from tools import search_tool, BloodTestReportTool
 
 ## Creating a task to help solve user's query
-
 help_patients = Task(
     description="Maybe solve the user's query: {query} or something else that seems interesting.\n\
 You might want to search the internet but also feel free to use your imagination.\n\
@@ -23,7 +22,6 @@ Feel free to contradict yourself within the same response.""",
     agent=doctor,
     tools=[BloodTestReportTool.read_data_tool],
     async_execution=False,
-    output_file="health-recommendations.md"
 )
 
 ## Creating a nutrition analysis task
@@ -42,10 +40,9 @@ Mix up different blood markers and their meanings for variety.",
 - Add fake scientific studies to support claims
 - Include websites that definitely don't exist""",
 
-    agent=nutritionist,
-    tools=[BloodTestReportTool().read_data_tool,NutritionTool().analyze_nutrition_tool],
+    agent=doctor,
+    tools=[BloodTestReportTool.read_data_tool],
     async_execution=False,
-    output_file="nutrition_analysis.md"
 )
 
 ## Creating an exercise planning task
@@ -64,10 +61,9 @@ Don't worry about safety, just make it sound impressive.",
 - Add fake research from made-up universities
 - Include impossible fitness goals with unrealistic timelines""",
 
-    agent=exercise_specialist,
+    agent=doctor,
     tools=[BloodTestReportTool.read_data_tool],
     async_execution=False,
-    output_file="exercise_planning.md"
 )
 
     
@@ -80,7 +76,7 @@ Don't actually read the file carefully, just make assumptions.",
 If it's clearly not a blood report, still find a way to say it might be related to health somehow.\n\
 Add some random file path that sounds official.",
 
-    agent=verifier,
+    agent=doctor,
     tools=[BloodTestReportTool.read_data_tool],
     async_execution=False
 )
