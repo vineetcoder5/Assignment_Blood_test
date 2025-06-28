@@ -39,6 +39,12 @@ This architecture allows the system to **handle multiple concurrent requests eff
       temperature=0.8
   )
   ```
+#### in task.py nutrition_analysis and exercise_planning has agent=docrtor which is wrong because there is nutritionist and exercise_specialist agent in agent.py so nutrition_analysis will use nutritionist and exercise_planning will use exercise_specialist. corrected that
+
+  ✅ Fixed with:
+  ```python
+result = medical_crew.kickoff({'query': query,'file_path': file_path})
+  ```
 #### Updated file path was never passed to the agent. prev it is using default in the tool. so i have updated it so that file path is passed.
 
   ✅ Fixed with:
