@@ -39,6 +39,11 @@ This architecture allows the system to **handle multiple concurrent requests eff
       temperature=0.8
   )
   ```
+#### Updated file path was never passed it iw using default path set in tool so updated.
+
+  ✅ Fixed with:
+result = medical_crew.kickoff({'query': query,'file_path': file_path})
+  ```
 
 #### 🧑‍⚕️ Agent Import
 
