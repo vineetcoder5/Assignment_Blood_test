@@ -45,6 +45,7 @@ This architecture allows the system to **handle multiple concurrent requests eff
   ```python
 result = medical_crew.kickoff({'query': query,'file_path': file_path})
   ```
+#### created .env file to fetch the open ai api key.
 
 #### 🧑‍⚕️ Agent Import
 
@@ -98,6 +99,8 @@ DATABASE_URL = "mysql+pymysql://root:Yourpassword@127.0.0.1:3306/blood_analysis"
 ```
 
 ---
+
+### 5. update your open ai api key on .env file
 
 ## ⚙️ Run the Application
 
