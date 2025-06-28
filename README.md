@@ -42,6 +42,7 @@ This architecture allows the system to **handle multiple concurrent requests eff
 #### Updated file path was never passed it iw using default path set in tool so updated.
 
   ✅ Fixed with:
+  ```python
 result = medical_crew.kickoff({'query': query,'file_path': file_path})
   ```
 
