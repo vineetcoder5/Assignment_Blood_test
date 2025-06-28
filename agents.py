@@ -10,10 +10,10 @@ from tools import search_tool, BloodTestReportTool
 
 ### Loading LLM
 from crewai.llm import LLM
-
+api_key = os.getenv("OPENAI_API_KEY")
 llm = LLM(              
     model="gpt-4.1-mini",              
-    api_key="Your open ai api key",
+    api_key=api_key,
     temperature=0.8
 )
 
