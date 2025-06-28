@@ -135,7 +135,7 @@ Response:
 ### 📥 Fetch Result
 
 ```bash
-curl http://localhost:8000/result/4dd1b3d6-3223-48ee-bd36-1df7d8491e70
+curl http://localhost:8000/result/task id which you recieved
 ```
 
 ---
