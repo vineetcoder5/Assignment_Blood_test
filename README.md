@@ -39,7 +39,7 @@ This architecture allows the system to **handle multiple concurrent requests eff
       temperature=0.8
   )
   ```
-#### Updated file path was never passed it iw using default path set in tool so updated.
+#### Updated file path was never passed to the agent. prev it is using default in the tool. so i have updated it so that file path is passed.
 
   ✅ Fixed with:
   ```python
