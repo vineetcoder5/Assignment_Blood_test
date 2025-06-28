@@ -13,7 +13,7 @@ from crewai.llm import LLM
 
 llm = LLM(              
     model="gpt-4.1-mini",              
-    api_key="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",
+    api_key="Your open ai api key",
     temperature=0.8
 )
 
