@@ -1,7 +1,8 @@
-# 🧪 Blood Test Report Analyzer — Debugged and Enhanced
+# 🧬 Blood Test Report Analyzer — with FastAPI, Celery, Redis, and MySQL
 
-A multi-agent AI system that analyzes blood test reports using **CrewAI**, served through a **FastAPI API**, with **Celery for async processing** and **MySQL for result storage**.
+A multi-agent AI system that analyzes blood test reports using **CrewAI**, served through a **FastAPI API**, with **Celery for asynchronous background processing**, **Redis as the message broker**, and **MySQL for persistent result storage**.
 
+This architecture allows the system to **handle multiple concurrent requests efficiently**, queueing tasks using **Redis** and processing them with **Celery** workers.
 ---
 
 ## 🐛 Bugs Fixed & Modifications Made
@@ -133,21 +134,6 @@ Response:
 
 ```bash
 curl http://localhost:8000/result/4dd1b3d6-3223-48ee-bd36-1df7d8491e70
-```
-
----
-
-## 📁 Folder Structure
-
-```
-.
-├── main.py               # FastAPI + Celery + DB logic
-├── agents.py             # CrewAI medical agent
-├── task.py               # CrewAI task for analyzing report
-├── tools.py              # PDF analysis tool
-├── models.py             # SQLAlchemy DB model
-├── data/                 # Folder for temp uploaded PDFs
-├── venv/                 # Python virtual environment
 ```
 
 ---
