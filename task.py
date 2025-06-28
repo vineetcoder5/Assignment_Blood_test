@@ -1,7 +1,7 @@
 ## Importing libraries and files
 from crewai import Task
 
-from agents import doctor, verifier
+from agents import doctor, verifier, nutritionist,exercise_specialist
 from tools import search_tool, BloodTestReportTool
 
 ## Creating a task to help solve user's query
@@ -40,7 +40,7 @@ Mix up different blood markers and their meanings for variety.",
 - Add fake scientific studies to support claims
 - Include websites that definitely don't exist""",
 
-    agent=doctor,
+    agent=nutritionist,
     tools=[BloodTestReportTool.read_data_tool],
     async_execution=False,
 )
@@ -61,7 +61,7 @@ Don't worry about safety, just make it sound impressive.",
 - Add fake research from made-up universities
 - Include impossible fitness goals with unrealistic timelines""",
 
-    agent=doctor,
+    agent=exercise_specialist,
     tools=[BloodTestReportTool.read_data_tool],
     async_execution=False,
 )
@@ -76,7 +76,7 @@ Don't actually read the file carefully, just make assumptions.",
 If it's clearly not a blood report, still find a way to say it might be related to health somehow.\n\
 Add some random file path that sounds official.",
 
-    agent=doctor,
+    agent=verifier,
     tools=[BloodTestReportTool.read_data_tool],
     async_execution=False
 )
