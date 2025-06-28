@@ -41,7 +41,6 @@ def analyze_blood_test(query: str, file_path: str, task_id: str):
 
     # 2. Create a callback function to capture each task’s output
     def task_callback(task_output):
-        # name = getattr(task_output, 'task_name', '<unknown>')
         results.append(task_output.raw)
 
     try:
