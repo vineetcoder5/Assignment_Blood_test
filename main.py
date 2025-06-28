@@ -1,8 +1,8 @@
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from celery import Celery
 from crewai import Crew, Process
-from agents import doctor
-from task import help_patients
+from agents import doctor,nutritionist,exercise_specialist
+from task import help_patients,nutrition_analysis,exercise_planning
 
 import os
 import uuid
@@ -43,8 +43,8 @@ def analyze_blood_test(query: str, file_path: str, task_id: str):
     try:
         # Run CrewAI analysis
         medical_crew = Crew(
-            agents=[doctor],
-            tasks=[help_patients],
+            agents=[doctor, nutritionist, exercise_specialist],
+            tasks=[help_patients, nutrition_analysis, exercise_planning],
             process=Process.sequential,
         )
         result = medical_crew.kickoff({'query': query,'file_path': file_path})
