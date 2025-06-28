@@ -2,7 +2,7 @@
 
 A multi-agent AI system that analyzes blood test reports using **CrewAI**, served through a **FastAPI API**, with **Celery for asynchronous background processing**, **Redis as the message broker**, and **MySQL for persistent result storage**.
 
-This architecture allows the system to **handle multiple concurrent requests efficiently**, queueing tasks using **Redis** and processing them with **Celery** workers.
+This architecture allows the system to **handle multiple concurrent requests efficiently**, queueing tasks using **Redis** and processing them with **Celery** workers. and then storring the result in mysql database
 ---
 
 ## 🐛 Bugs Fixed & Modifications Made
