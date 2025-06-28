@@ -12,7 +12,7 @@ from sqlalchemy.orm import sessionmaker
 from models import Base, AnalysisResult
 
 # === Database Configuration ===
-DATABASE_URL = "mysql+pymysql://root:Vineet%40@localhost:3306/blood_analysis"
+DATABASE_URL = "mysql+pymysql://root:Yourpassword@localhost:3306/blood_analysis"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
@@ -32,16 +32,18 @@ celery_app.conf.enable_utc = True
 @celery_app.task
 def analyze_blood_test(query: str, file_path: str, task_id: str):
 
-    DATABASE_URL = "mysql+pymysql://root:Yourpassword@127.0.0.1:3306/blood_analysis"
+    DATABASE_URL = "mysql+pymysql://root:Vineet%40@127.0.0.1:3306/blood_analysis"
     engine = create_engine(DATABASE_URL)
     Session = sessionmaker(bind=engine)
     db = Session()
     # 1. Define a container for the results
-    results = {}
+    results = []
 
     # 2. Create a callback function to capture each task’s output
     def task_callback(task_output):
-        results[task_output.task.name] = task_output.raw
+        # name = getattr(task_output, 'task_name', '<unknown>')
+        results.append(task_output.raw)
+
     try:
         # Run CrewAI analysis
         medical_crew = Crew(
